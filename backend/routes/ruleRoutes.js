@@ -21,6 +21,7 @@ router.post('/evaluate', (req, res) => {
     const ast = req.body.ast; // Get the AST from the request body
     console.log(req.body.ast);
     const data = req.body.data; // Get the data for evaluation
+    console.log(" body data:" ,req.body.data);
     const result = ruleController.evaluate_rule(ast, data); // Evaluate the AST against the data
     res.json({ result }); // Return the evaluation result
 });

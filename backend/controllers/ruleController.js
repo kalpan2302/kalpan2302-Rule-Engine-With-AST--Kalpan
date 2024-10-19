@@ -291,30 +291,42 @@ function generateAst(rule) {
     }
   };
   
+  function evaluateNode(node,data) {
+    console.log("inside evaluate node"  , node);
+    
+    if (node instanceof BinaryOp) {
+        console.log("inside binary op : ",node)
+        const left = evaluateNode(node.left,data);
+        console.log("left value : ",left);
+        const right = evaluateNode(node.right,data);
+        if (node.operator === 'AND') {
+            return left && right;
+        } else if (node.operator === 'OR') {
+            return left || right;
+        }
+    } else if (node instanceof Comparison) {
+        console.log("inside comparison : ",node)
+        const leftValue = node.left instanceof Variable ? data[node.left.name] : node.left.value; // age
+        console.log("left value : ",leftValue)
+        const rightValue = node.right instanceof Variable ? data[node.right.name] : node.right.value; // 35
 
-  function evaluate_rule(ast, data) {
-    function evaluateNode(node) {
-        if (node instanceof BinaryOp) {
-            const left = evaluateNode(node.left);
-            const right = evaluateNode(node.right);
-            if (node.operator === 'AND') {
-                return left && right;
-            } else if (node.operator === 'OR') {
-                return left || right;
-            }
-        } else if (node instanceof Comparison) {
-            const leftValue = node.left instanceof Variable ? data[node.left.name] : node.left.value;
-            const rightValue = node.right instanceof Variable ? data[node.right.name] : node.right.value;
+        const rightData= data.rightValue; // 50
+        // const leftData  = data.leftValue; // 
 
-            if (node.operator === '>') {
-                return leftValue > rightValue;
-            } else if (node.operator === '<') {
-                return leftValue < rightValue;
-            } else if (node.operator === '=') {
-                return leftValue == rightValue;
-            }
+        if (node.operator === '>') {
+            return rightData > rightValue;
+        } else if (node.operator === '<') {
+            return rightData < rightValue;
+        } else if (node.operator === '=') {
+            return rightData == rightValue;
         }
     }
+}
+  function evaluate_rule(ast, data) {
+    console.log("inside evaluate : ",data)
+    console.log("inside evaluate : ",ast) // undefined ?? 
+    return evaluateNode(ast,data);  // Start evaluation from the root of the AST
+}
 
   // Function to evaluate the AST against the provided data
 //   const evaluate_rule = (ast, data) => {
@@ -349,7 +361,7 @@ function generateAst(rule) {
 //         default:
 //             return false; // Default return false if no condition matched
 //     }
-  };
+  
   
   module.exports = {
     create_rule,
