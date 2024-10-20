@@ -17,7 +17,9 @@ const RuleForm = () => {
     const rule = await ruleService.createRule(ruleString);
 
     // Evaluate rule
-    const result = await ruleService.evaluateRule(rule.ast, data);
+    console.log("rule ast :",rule);
+    console.log("data : ",data);
+    const result = await ruleService.evaluateRule(rule, data);
     setOutput(result);
   };
 

@@ -1,16 +1,3 @@
-// backend/controllers/ruleController.js
-
-// Define the Node structure for the AST
-// class Node {
-//     constructor(type, left = null, right = null, value = null) {
-//         this.type = type; // "operator" for AND/OR, "operand" for conditions
-//         this.left = left; // Reference to left child
-//         this.right = right; // Reference to right child (for operators)
-//         this.value = value; // Optional value for operand nodes (e.g., number for comparisons)
-//     }
-//   }
-  
-
 class ASTNode {}
 
 class BinaryOp extends ASTNode {
@@ -134,11 +121,6 @@ function generateAst(rule) {
 }
 
 
-//   // Function to create a Node from a rule string
-//   const createNode = (type, left, right, value) => {
-//     return new Node(type, left, right, value);
-//   };
-  
   // Function to parse the rule string and generate the corresponding AST
   const create_rule = (rule_string) => {
     try {
@@ -155,119 +137,8 @@ function generateAst(rule) {
     }
   };
 
+//   const ast1 = create_rule(rule_string);
 
-//   function tokenize(ruleString) {
-//     // Regular expression to match variables, numbers, operators, and keywords
-//     const regex = /\s*(=>|<|>|=|AND|OR|\(|\)|[a-zA-Z]+|[0-9]+)\s*/g;
-//     return ruleString.match(regex).filter(token => token.trim().length > 0);
-// }
-
-// function parseTokens(tokens) {
-//     const outputQueue = [];  // For storing operands and operators
-//     const operatorStack = []; // For storing operators
-
-//     const precedence = {
-//         '>': 1,
-//         '<': 1,
-//         '=': 1,
-//         'AND': 2,
-//         'OR': 2
-//     };
-
-//     tokens.forEach(token => {
-//         if (!isNaN(token)) {
-//             // If token is a number, push it as an operand node
-//             outputQueue.push(new Node('operand', { value: token }));
-//         } else if (isVariable(token)) {
-//             // If token is a variable (like 'age' or 'salary')
-//             outputQueue.push(new Node('operand', { attribute: token }));
-//         } else if (token in precedence) {
-//             // Token is an operator
-//             while (operatorStack.length && precedence[operatorStack[operatorStack.length - 1]] >= precedence[token]) {
-//                 const opNode = new Node('operator', operatorStack.pop());
-//                 opNode.right = outputQueue.pop();
-//                 opNode.left = outputQueue.pop();
-//                 outputQueue.push(opNode);
-//             }
-//             operatorStack.push(token);
-//         }
-//     });
-
-//     // Process remaining operators in the stack
-//     while (operatorStack.length) {
-//         const opNode = new Node('operator', operatorStack.pop());
-//         opNode.right = outputQueue.pop();
-//         opNode.left = outputQueue.pop();
-//         outputQueue.push(opNode);
-//     }
-
-//     return outputQueue.length ? outputQueue[0] : null; // Return the root of the AST
-// }
-
-// function isVariable(token) {
-//     // A simple check for variable names (letters only for this example)
-//     return /^[a-zA-Z]+$/.test(token);
-// }
-
-// function parseRuleString(ruleString) {
-//     console.log(`Tokenizing rule string: "${ruleString}"`);
-//     const tokens = tokenize(ruleString);
-//     console.log(`Tokens:`, tokens);
-//     const ast = parseTokens(tokens);
-//     console.log(`AST:`, JSON.stringify(ast, null, 2)); // Print the AST structure
-//     return ast;
-// }
-
-
-  
-//   // Tokenization function to split the rule string into tokens
-//   const tokenize = (rule_string) => {
-//     // Replace any whitespace and split by operators and operands
-//     const regex = /\s*([()])\s*|(\s+|&{2}|(\|\|)|==|=|!=|>|<|>=|<=|\w+)/g;
-//     console.log("Tokenizing string:", rule_string.match(regex).filter(token => token.trim()));
-//     return rule_string.match(regex).filter(token => token.trim());
-//   };
-  
-//   // Parsing function to convert tokens into an AST
-//   const parseTokens = (tokens) => {
-//     const stack = [];
-//     let current = null;
-  
-//     while (tokens.length > 0) {
-//         const token = tokens.shift();
-        
-//         if (token === '(') {
-//             // Start a new sub-expression
-//             stack.push(current);
-//             current = null; // Reset current for new expression
-//         } else if (token === ')') {
-//             // End of a sub-expression
-//             const node = current;
-//             current = stack.pop(); // Return to previous expression
-//             if (current) {
-//                 current.right = node; // Attach the completed node
-//             }
-//         } else if (token === 'AND' || token === 'OR') {
-//             // Handle operators
-//             if (current) {
-//                 const newNode = createNode("operator", current, null, token);
-//                 current = newNode; // Set current to new operator node
-//             }
-//         } else {
-//             // Handle operand (assume simple comparison for now)
-//             const nextToken = tokens.shift(); // Get the next token (should be operator or value)
-//             const value = nextToken === '=' || nextToken === '==' ? tokens.shift() : nextToken;
-//             const newNode = createNode("operand", null, null, { attribute: token, value });
-//             if (current) {
-//                 current.right = newNode; // Attach new operand to current node
-//             } else {
-//                 current = newNode; // Set as current if nothing is present
-//             }
-//         }
-//     }
-//     console.log("Current:", current);
-//     return current; // Return the root of the AST
-//   };
   
   // Function to combine multiple rules into a single AST
   const combine_rules = (rules) => {
@@ -291,77 +162,115 @@ function generateAst(rule) {
     }
   };
   
-  function evaluateNode(node,data) {
-    console.log("inside evaluate node"  , node);
+//   function evaluateNode(node,data) {
+//     console.log("inside evaluate node"  , node);
+//     console.log("inside evaluate data"  , data);
     
-    if (node instanceof BinaryOp) {
-        console.log("inside binary op : ",node)
-        const left = evaluateNode(node.left,data);
-        console.log("left value : ",left);
-        const right = evaluateNode(node.right,data);
+//     if (node instanceof BinaryOp) {
+//         console.log("inside binary op : ",node)
+//         const left = evaluateNode(node.left,data);
+//         console.log("left value : ",left);
+//         const right = evaluateNode(node.right,data);
+//         if (node.operator === 'AND') {
+//             return left && right;
+//         } else if (node.operator === 'OR') {
+//             return left || right;
+//         }
+//     } else if (node instanceof Comparison) {
+//         console.log("inside comparison : ",node)
+//         const leftValue = node.left instanceof Variable ? data[node.left.name] : node.left.value; // age
+//         console.log("left value : ",leftValue)
+//         const rightValue = node.right instanceof Variable ? data[node.right.name] : node.right.value; // 35
+
+//         const rightData= data.rightValue; // 50
+//         // const leftData  = data.leftValue; // 
+
+//         if (node.operator === '>') {
+//             return rightData > rightValue;
+//         } else if (node.operator === '<') {
+//             return rightData < rightValue;
+//         } else if (node.operator === '=') {
+//             return rightData == rightValue;
+//         }
+//     }
+// }
+
+
+function evaluateNode(node, data) {
+    console.log("inside evaluate node:", node);
+    console.log("inside evaluate data:", data);
+
+    if(node.operator === 'AND' || node.operator === 'OR') {
+        const left = evaluateNode(node.left, data);
+        const right = evaluateNode(node.right, data);
         if (node.operator === 'AND') {
             return left && right;
         } else if (node.operator === 'OR') {
             return left || right;
         }
-    } else if (node instanceof Comparison) {
-        console.log("inside comparison : ",node)
-        const leftValue = node.left instanceof Variable ? data[node.left.name] : node.left.value; // age
-        console.log("left value : ",leftValue)
-        const rightValue = node.right instanceof Variable ? data[node.right.name] : node.right.value; // 35
+    }else if(node.operator === '>' || node.operator === '<' || node.operator === '='){
+        const leftValue = node.left.name;
+        const rightValue = node.right.value;
 
-        const rightData= data.rightValue; // 50
-        // const leftData  = data.leftValue; // 
-
-        if (node.operator === '>') {
-            return rightData > rightValue;
-        } else if (node.operator === '<') {
-            return rightData < rightValue;
-        } else if (node.operator === '=') {
-            return rightData == rightValue;
+        if(node.operator === '>'){
+            return data[leftValue] > rightValue;
+        }else if(node.operator === '<'){
+            return data[leftValue] < rightValue;           
+        }else{
+            return data[leftValue] == rightValue;
         }
     }
-}
-  function evaluate_rule(ast, data) {
-    console.log("inside evaluate : ",data)
-    console.log("inside evaluate : ",ast) // undefined ?? 
-    return evaluateNode(ast,data);  // Start evaluation from the root of the AST
+
+    
+
+    // // Handle binary operators (AND, OR)
+    // if (node instanceof BinaryOp) {
+    //     console.log("inside binary op:", node);
+
+    //     // Recursively evaluate the left and right child nodes
+    //     const left = evaluateNode(node.left, data);
+    //     console.log("left value:", left);
+    //     const right = evaluateNode(node.right, data);
+    //     console.log("right value:", right);
+
+    //     // Perform logical operations based on the binary operator
+    //     if (node.operator === 'AND') {
+    //         return left && right;
+    //     } else if (node.operator === 'OR') {
+    //         return left || right;
+    //     }
+    // }
+    // // Handle comparison operations (>, <, =)
+    // else if (node instanceof Comparison) {
+    //     console.log("inside comparison:", node);
+
+    //     // Get the left value from the data object (e.g., data['age'])
+    //     const leftValue = node.left instanceof Variable ? data[node.left.name] : node.left.value;
+    //     console.log("left value (from data):", leftValue);
+
+    //     // Get the right value from the comparison node
+    //     const rightValue = node.right instanceof Variable ? data[node.right.name] : node.right.value;
+    //     console.log("right value (from rule):", rightValue);
+
+    //     // Perform the comparison based on the operator in the rule
+    //     if (node.operator === '>') {
+    //         return leftValue > rightValue;
+    //     } else if (node.operator === '<') {
+    //         return leftValue < rightValue;
+    //     } else if (node.operator === '=') {
+    //         return leftValue == rightValue;
+    //     }
+    // }
+
+    // If the node is neither a BinaryOp nor a Comparison, return false as default
+    return false;
 }
 
-  // Function to evaluate the AST against the provided data
-//   const evaluate_rule = (ast, data) => {
-//     try {
-//         if (ast.type === "operand") {
-//             return evaluateOperand(ast.value, data);
-//         } else if (ast.type === "operator") {
-//             const leftEval = evaluate_rule(ast.left, data);
-//             const rightEval = evaluate_rule(ast.right, data);
-            
-//             return ast.value === "AND" ? leftEval && rightEval : leftEval || rightEval;
-//         }
-//         return false; // Default return false if evaluation fails
-//     } catch (error) {
-//         console.error('Error evaluating rule:', error);
-//         throw new Error('Failed to evaluate rule. Please check the AST and data.');
-//     }
-//   };
-  
-//   // Function to evaluate an operand node
-//   const evaluateOperand = ({ attribute, value }, data) => {
-//     // Implement actual comparison logic
-//     switch (attribute) {
-//         case 'age':
-//             return data.age > value; // Example condition for age
-//         case 'department':
-//             return data.department === value; // Example condition for department
-//         case 'salary':
-//             return data.salary > value; // Example condition for salary
-//         case 'experience':
-//             return data.experience > value; // Example condition for experience
-//         default:
-//             return false; // Default return false if no condition matched
-//     }
-  
+  function evaluate_rule(ast1, data) {
+    console.log("inside evaluate : ",data)
+    console.log("inside evaluate : ",ast1) // undefined ?? 
+    return evaluateNode(ast1,data);  // Start evaluation from the root of the AST
+} 
   
   module.exports = {
     create_rule,
@@ -369,3 +278,22 @@ function generateAst(rule) {
     evaluate_rule
   };
   
+// ((age > 30 AND department = 'Sales') OR (age < 25 AND
+// department = 'Marketing')) AND (salary > 50000 OR experience >
+// 5)
+
+
+// AST: BinaryOp {
+//     left: BinaryOp {
+//       left: Comparison { left: [Variable], operator: '<', right: [Value] },
+//       operator: 'OR',
+//       right: BinaryOp { left: [BinaryOp], operator: 'OR', right: [BinaryOp] }
+//     },
+//     operator: 'AND',
+//     right: BinaryOp {
+//       left: Comparison { left: [Variable], operator: '>', right: [Value] },
+//       operator: 'OR',
+//       right: Comparison { left: [Variable], operator: '>', right: [Value] }
+//     }
+//   }
+
