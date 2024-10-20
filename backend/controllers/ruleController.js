@@ -161,67 +161,136 @@ function generateAst(rule) {
         throw new Error('Failed to combine rules. Please check the rules format.');
     }
   };
-  
-//   function evaluateNode(node,data) {
-//     console.log("inside evaluate node"  , node);
-//     console.log("inside evaluate data"  , data);
-    
-//     if (node instanceof BinaryOp) {
-//         console.log("inside binary op : ",node)
-//         const left = evaluateNode(node.left,data);
-//         console.log("left value : ",left);
-//         const right = evaluateNode(node.right,data);
+// function evaluateNode(node, data) {
+//     console.log("inside evaluate node:", node);
+//     console.log("inside evaluate data:", data);
+
+//     if(node.operator === 'AND' || node.operator === 'OR') {
+//         const left = evaluateNode(node.left, data);
+//         const right = evaluateNode(node.right, data);
 //         if (node.operator === 'AND') {
 //             return left && right;
 //         } else if (node.operator === 'OR') {
 //             return left || right;
 //         }
-//     } else if (node instanceof Comparison) {
-//         console.log("inside comparison : ",node)
-//         const leftValue = node.left instanceof Variable ? data[node.left.name] : node.left.value; // age
-//         console.log("left value : ",leftValue)
-//         const rightValue = node.right instanceof Variable ? data[node.right.name] : node.right.value; // 35
+//     }else if(node.operator === '>' || node.operator === '<' || node.operator === '='){
+//         const leftValue = node.left.name;
+//         const rightValue = node.right.value;
 
-//         const rightData= data.rightValue; // 50
-//         // const leftData  = data.leftValue; // 
-
-//         if (node.operator === '>') {
-//             return rightData > rightValue;
-//         } else if (node.operator === '<') {
-//             return rightData < rightValue;
-//         } else if (node.operator === '=') {
-//             return rightData == rightValue;
+//         if(node.operator === '>'){
+//             return data[leftValue] > rightValue;
+//         }else if(node.operator === '<'){
+//             return data[leftValue] < rightValue;           
+//         }else{
+//             return data[leftValue] == rightValue;
 //         }
 //     }
+
+//     // If the node is neither a BinaryOp nor a Comparison, return false as default
+//     return false;
 // }
 
+
+
+// perplexity
 
 function evaluateNode(node, data) {
     console.log("inside evaluate node:", node);
     console.log("inside evaluate data:", data);
 
-    if(node.operator === 'AND' || node.operator === 'OR') {
+    // Check if the node is a logical operator (AND, OR)
+    if (node.operator === 'AND' || node.operator === 'OR') {
         const left = evaluateNode(node.left, data);
         const right = evaluateNode(node.right, data);
-        if (node.operator === 'AND') {
-            return left && right;
-        } else if (node.operator === 'OR') {
-            return left || right;
-        }
-    }else if(node.operator === '>' || node.operator === '<' || node.operator === '='){
-        const leftValue = node.left.name;
-        const rightValue = node.right.value;
+        return node.operator === 'AND' ? left && right : left || right;
+    }
 
-        if(node.operator === '>'){
-            return data[leftValue] > rightValue;
-        }else if(node.operator === '<'){
-            return data[leftValue] < rightValue;           
-        }else{
-            return data[leftValue] == rightValue;
+    // Check if the node is a comparison operator (>, <, =)
+    if (node.operator === '>' || node.operator === '<' || node.operator === '=') {
+        const leftValue = data[node.left.name]; // Accessing the value from data using the left node's name // sales
+        
+        let rightValue = node.right.value; // Right value is assumed to be a literal 
+        if(rightValue === undefined) {
+            rightValue = node.right.name;
+        }
+
+        console.log("inside leftvalue" ,leftValue);
+        console.log("inside rightvalue" , rightValue);
+        switch (node.operator) {
+            case '>':
+                console.log("inside >",leftValue > rightValue);
+                return leftValue > rightValue;
+            case '<':
+                console.log("inside >",leftValue < rightValue);
+                return leftValue < rightValue;
+            case '=':
+                console.log("inside >",leftValue === rightValue);
+                return leftValue === rightValue;
+            default:
+                return false; // Fallback for unrecognized operators
         }
     }
 
-    
+    // If the node is neither a BinaryOp nor a Comparison, return false as default
+    return false;
+}
+
+  function evaluate_rule(ast1, data) {
+    console.log("inside evaluate : ",data)
+    console.log("inside evaluate : ",ast1) // undefined ?? 
+    return evaluateNode(ast1,data);  // Start evaluation from the root of the AST
+} 
+
+  
+
+  
+  module.exports = {
+    create_rule,
+    combine_rules,
+    evaluate_rule
+  }
+
+
+
+
+
+  // -----------------------------------------------------------
+  
+// ((age > 30 AND2 department = 'Sales') OR2 (age < 25 AND3
+// department = 'Marketing')) AND1 (salary > 50000 OR1 experience >
+// 5)
+
+// ((age > 30 AND department = 'Sales') OR (age < 25 OR department = 'Marketing')) AND (salary > 50000 OR experience < 5)
+
+
+// body ast : {
+//     left: {
+//       left: { left: [Object], operator: 'AND', right: [Object] },
+//       operator: 'OR',
+//       right: { left: [Object], operator: 'OR', right: [Object] }
+//     },
+//     operator: 'AND',
+//     right: {
+//       left: { left: [Object], operator: '>', right: [Object] },
+//       operator: 'OR',
+//       right: { left: [Object], operator: '<', right: [Object] }
+//     }
+//   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------------------------
+
 
     // // Handle binary operators (AND, OR)
     // if (node instanceof BinaryOp) {
@@ -261,39 +330,3 @@ function evaluateNode(node, data) {
     //         return leftValue == rightValue;
     //     }
     // }
-
-    // If the node is neither a BinaryOp nor a Comparison, return false as default
-    return false;
-}
-
-  function evaluate_rule(ast1, data) {
-    console.log("inside evaluate : ",data)
-    console.log("inside evaluate : ",ast1) // undefined ?? 
-    return evaluateNode(ast1,data);  // Start evaluation from the root of the AST
-} 
-  
-  module.exports = {
-    create_rule,
-    combine_rules,
-    evaluate_rule
-  };
-  
-// ((age > 30 AND department = 'Sales') OR (age < 25 AND
-// department = 'Marketing')) AND (salary > 50000 OR experience >
-// 5)
-
-
-// AST: BinaryOp {
-//     left: BinaryOp {
-//       left: Comparison { left: [Variable], operator: '<', right: [Value] },
-//       operator: 'OR',
-//       right: BinaryOp { left: [BinaryOp], operator: 'OR', right: [BinaryOp] }
-//     },
-//     operator: 'AND',
-//     right: BinaryOp {
-//       left: Comparison { left: [Variable], operator: '>', right: [Value] },
-//       operator: 'OR',
-//       right: Comparison { left: [Variable], operator: '>', right: [Value] }
-//     }
-//   }
-

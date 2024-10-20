@@ -19,11 +19,11 @@ router.post('/combine', (req, res) => {
 });
 
 router.post('/evaluate', (req, res) => {
-    console.log(" req body : ",req.body);
+    // console.log(" req body : ",req.body);
     const ast = req.body.ast; // Get the AST from the request body
     console.log("body ast :",req.body.ast);   // undrfiend??
     const data = req.body.data; // Get the data for evaluation
-    console.log(" body data:" ,req.body.data);
+    // console.log(" body data:" ,req.body.data);
     const result = ruleController.evaluate_rule(ast,data); // Evaluate the AST against the data
     res.json({ result }); // Return the evaluation result
 });
