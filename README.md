@@ -9,35 +9,24 @@ This project isp a simple 3-tier rule engine application(Simple UI, API and Back
 - Deployed  [Web Site](https://rule-engine-ast-b27b.onrender.com)
 
 
-## Table of Contents
-- [Technologies](#technologies)
-- [Features](#features)
-- [Folder Structure](#folder-structure)
-- [Setup Instructions](#setup-instructions)
-- [API Endpoints](#api-endpoints)
-- [Usage](#usage)
-- [Testing](#testing)
+
 
 ## Technologies
 - **Node.js**
 - **Express.js** (RESTful API)
-- **MongoDB** (Database)
+- **Javascript**
+- **ReactJs**
+- **Tailwind CSS**
 - **Postman** (API Testing)
 
-## Features
-- REST API that accepts user profiles and returns job recommendations.
-- Matching logic based on skills, experience, and user preferences.
-- MongoDB integration for job postings and user profiles.
-- Proper error handling for API requests and database operations.
-
-
-
-## Setup Instructions
+### Setup Instructions
 
 ### 1. Prerequisites
 Before setting up the project, ensure you have the following installed:
-- **Node.js** (v14 or higher)
-- **npm** (comes with Node.js)
+
+- **Node.js (v14.x or above)
+- **npm (v6.x or above)
+- **Git
 
 ### 2. Clone the Repository
 Clone the repository to your local machine:
@@ -92,3 +81,13 @@ To start the frontend, use the following command:
 npm start
 ```
 This will start the frontend on http://localhost:3000.
+
+### Sample Rules:
+
+● rule1 = ((age > 30 AND department = Sales) OR (age < 25 AND
+department = Marketing)) AND (salary > 50000 OR experience >
+5)
+
+● rule2 = ((age > 30 AND department = Marketing)) AND (salary >
+20000 OR experience > 5)
+
