@@ -19,6 +19,23 @@ This project isp a simple 3-tier rule engine application(Simple UI, API and Back
 - **Tailwind CSS**
 - **Postman** (API Testing)
 
+
+### Sample Rules:
+
+● rule1 = ((age > 30 AND department = Sales) OR (age < 25 AND
+department = Marketing)) AND (salary > 50000 OR experience >
+5)
+
+● rule2 = ((age > 30 AND department = Marketing)) AND (salary >
+20000 OR experience > 5)
+
+## NOTE:
+
+- In Input rule enter department =Sales rather then department ='Sales'.
+- In rule write age, department, salary, experience in lowercase.
+- Write Binary operator like AND, OR in uppercase only.
+
+
 ### Setup Instructions
 
 ### 1. Prerequisites
@@ -82,12 +99,12 @@ npm start
 ```
 This will start the frontend on http://localhost:3000.
 
-### Sample Rules:
 
-● rule1 = ((age > 30 AND department = Sales) OR (age < 25 AND
-department = Marketing)) AND (salary > 50000 OR experience >
-5)
+### Additional Information:
 
-● rule2 = ((age > 30 AND department = Marketing)) AND (salary >
-20000 OR experience > 5)
+-- To run this project on a local machine if the Render server is not running properly, change the url (const variable) in  ‘ frontend/src/services/ruleService.js’ file  to 'http://localhost:5000'. Then run this app.
+
+
+-- On render web site link if the server is not responding quickly it may be due to free tier resource use to host this static site. So please wait for 40-50 sec and then press the evaluate button again. It will surely run.
+
 
