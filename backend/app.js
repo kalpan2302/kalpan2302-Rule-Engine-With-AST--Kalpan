@@ -13,8 +13,5 @@ app.use(bodyParser.json());
 
 app.use('/api', ruleRoutes);
 
+app.listen(5000, () => console.log("Server running on port 5000"));
 
-
-
-mongoose.connect('mongodb://localhost/ruleengine', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(5000, () => console.log("Server running on port 5000")));
