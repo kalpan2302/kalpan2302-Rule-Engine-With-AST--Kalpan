@@ -1,70 +1,94 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Rule Engine with AST(Abstract Syntax Tree) 
 
-## Available Scripts
+This project isp a simple 3-tier rule engine application(Simple UI, API and Backend, Data) to determine user eligibility based on attributes like age, department, income, spend etc.The system can use Abstract Syntax Tree (AST) to represent conditional rules and allow for dynamic creation,combination, and modification of these rules.
 
-In the project directory, you can run:
 
-### `npm start`
+## Web Site link (Render)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Deployed  [Web Site](https://rule-engine-ast-b27b.onrender.com)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Table of Contents
+- [Technologies](#technologies)
+- [Features](#features)
+- [Folder Structure](#folder-structure)
+- [Setup Instructions](#setup-instructions)
+- [API Endpoints](#api-endpoints)
+- [Usage](#usage)
+- [Testing](#testing)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
+- **Node.js**
+- **Express.js** (RESTful API)
+- **MongoDB** (Database)
+- **Postman** (API Testing)
 
-### `npm run build`
+## Features
+- REST API that accepts user profiles and returns job recommendations.
+- Matching logic based on skills, experience, and user preferences.
+- MongoDB integration for job postings and user profiles.
+- Proper error handling for API requests and database operations.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Setup Instructions
 
-### `npm run eject`
+### 1. Prerequisites
+Before setting up the project, ensure you have the following installed:
+- **Node.js** (v14 or higher)
+- **npm** (comes with Node.js)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 2. Clone the Repository
+Clone the repository to your local machine:
+```bash
+git clone https://github.com/kalpan2302/kalpan2302-Rule-Engine-With-AST--Kalpan
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Backend Setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Navigate to the backend directory:
+```bash
+cd backend
+```
+Install the required packages:
+```bash
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Start the backend server:
+```bash
+node app.js
+```
+This will start the backend on http://localhost:5000
 
-## Learn More
+### Frontend Setup
+Next, navigate to the frontend directory:
+```bash
+cd ../frontend
+```
+Install the required packages:
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Update API URL for Local Environment
+If the Render server is not running, you will need to point the frontend to the locally running backend.
+Open the file 
+```bash 
+cd src/services/ruleService.js.
+```
+Change the API URL to the following:
+```bash
+const url = 'http://localhost:5000';
+```
+This will make the frontend use the locally hosted backend.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Start the Frontend
+To start the frontend, use the following command:
+```bash
+npm start
+```
+This will start the frontend on http://localhost:3000.
