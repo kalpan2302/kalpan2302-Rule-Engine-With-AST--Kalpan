@@ -137,7 +137,7 @@ function generateAst(rule) {
     }
   };
 
-//   const ast1 = create_rule(rule_string);
+
 
   
   // Function to combine multiple rules into a single AST
@@ -161,38 +161,7 @@ function generateAst(rule) {
         throw new Error('Failed to combine rules. Please check the rules format.');
     }
   };
-// function evaluateNode(node, data) {
-//     console.log("inside evaluate node:", node);
-//     console.log("inside evaluate data:", data);
 
-//     if(node.operator === 'AND' || node.operator === 'OR') {
-//         const left = evaluateNode(node.left, data);
-//         const right = evaluateNode(node.right, data);
-//         if (node.operator === 'AND') {
-//             return left && right;
-//         } else if (node.operator === 'OR') {
-//             return left || right;
-//         }
-//     }else if(node.operator === '>' || node.operator === '<' || node.operator === '='){
-//         const leftValue = node.left.name;
-//         const rightValue = node.right.value;
-
-//         if(node.operator === '>'){
-//             return data[leftValue] > rightValue;
-//         }else if(node.operator === '<'){
-//             return data[leftValue] < rightValue;           
-//         }else{
-//             return data[leftValue] == rightValue;
-//         }
-//     }
-
-//     // If the node is neither a BinaryOp nor a Comparison, return false as default
-//     return false;
-// }
-
-
-
-// perplexity
 
 function evaluateNode(node, data) {
     console.log("inside evaluate node:", node);
@@ -276,57 +245,3 @@ function evaluateNode(node, data) {
 //       right: { left: [Object], operator: '<', right: [Object] }
 //     }
 //   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// --------------------------------------
-
-
-    // // Handle binary operators (AND, OR)
-    // if (node instanceof BinaryOp) {
-    //     console.log("inside binary op:", node);
-
-    //     // Recursively evaluate the left and right child nodes
-    //     const left = evaluateNode(node.left, data);
-    //     console.log("left value:", left);
-    //     const right = evaluateNode(node.right, data);
-    //     console.log("right value:", right);
-
-    //     // Perform logical operations based on the binary operator
-    //     if (node.operator === 'AND') {
-    //         return left && right;
-    //     } else if (node.operator === 'OR') {
-    //         return left || right;
-    //     }
-    // }
-    // // Handle comparison operations (>, <, =)
-    // else if (node instanceof Comparison) {
-    //     console.log("inside comparison:", node);
-
-    //     // Get the left value from the data object (e.g., data['age'])
-    //     const leftValue = node.left instanceof Variable ? data[node.left.name] : node.left.value;
-    //     console.log("left value (from data):", leftValue);
-
-    //     // Get the right value from the comparison node
-    //     const rightValue = node.right instanceof Variable ? data[node.right.name] : node.right.value;
-    //     console.log("right value (from rule):", rightValue);
-
-    //     // Perform the comparison based on the operator in the rule
-    //     if (node.operator === '>') {
-    //         return leftValue > rightValue;
-    //     } else if (node.operator === '<') {
-    //         return leftValue < rightValue;
-    //     } else if (node.operator === '=') {
-    //         return leftValue == rightValue;
-    //     }
-    // }
