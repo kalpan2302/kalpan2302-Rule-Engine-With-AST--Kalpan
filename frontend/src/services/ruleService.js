@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const url = process.env.REACT_APP_BACKEND_URL;
 
 const createRule = async (ruleString) => {
   const response = await axios.post(`${url}/api/create`, { ruleString });
