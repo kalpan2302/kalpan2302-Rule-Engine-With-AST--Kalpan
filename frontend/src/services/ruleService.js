@@ -1,14 +1,16 @@
 import axios from 'axios';
 
+const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+
 const createRule = async (ruleString) => {
-  const response = await axios.post('http://localhost:5000/api/create', { ruleString });
+  const response = await axios.post(`${url}/api/create`, { ruleString });
   console.log("rule erc=vice responce",response);
   return response.data;
 };
 
 const evaluateRule = async (ast, data) => {
   console.log("service ast :",ast);
-  const response = await axios.post('http://localhost:5000/api/evaluate', { ast, data });
+  const response = await axios.post(`${url}/api/evaluate`, { ast, data });
   return response.data.result;
 };
 
